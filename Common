@@ -1,0 +1,44 @@
+Matching:
+1)   Does the string have the letter o in it somewhere, but not the letter i?
+^[^i]*o[^i]*$
+2) Does the string have any two words that are the same?
+^.*(\w+\b).*?\b\1.*$
+3)  Does the string end with punctuation?  (Proper English punctuation.  Period, Question Mark, Exclamation Point.  [^\w\s] would handle any symbol though.)
+^.*[!.?]$
+4) Does the string have exactly seven characters?
+^.{7}$
+5) Does the string have any letter repeated three times in a row?
+^.*(?=([a-zA-Z])\1{2})(\1+).*$
+6)  Does the string have aeiou appear in that order (not necessarily adjacent.)
+^.*?a.*?e.*?i.*?o.*?u.*$
+7)  Does the string begin with a capital letter?
+^[A-Z].*$
+8) Does the string have a semicolon followed by  a coordinating  conjunction?  (Proper english, so semicolon, then space, then conjunction.  Actually, you aren't supposed to use a conjunction with a semicolon, so I guess this regex is testing  for bad grammar.) 
+^.*;\s[and|but|or].*$
+9)  Is the string a valid amount of money in US dollars?  ($1,000.00   or $400       So, yes to commas, no to USD, yes to dollar sign, and the dot and two cents digits are optional.)
+^\$\ ?[+-]?[0-9]{1,3}([0-9])*(?:\.[0-9]{2})?$ // GOOD
+10)  Is the string in alphabetical order?  (All of the letters are in alphabetical order.  Yes: abcd, gikz, aabbffrr, a b g y)
+^a*\s*b*\s*c*\s*d*\s*e*\s*f*\s*g*\s*h*\s*i*\s*j*\s*k*\s*l*\s*m*\s*n*\s*o*\s*p*\s*q*\s*r*\s*s*\s*t*\s*u*\s*v*\s*w*\s*x*\s*y*\s*z*\s*$
+
+
+Searching:
+11) Assume that instead of h files, a project is written with every class in one big file.  Capture all the class names.
+class\s(\b\w+\b)
+12)  Capture all the capitalized words in a string.
+(\b[A-Z][a-z]*\b)
+13) Capture all the words without the letter e.
+(\b[^\se]+\b)
+14)  Capture all the words with a number in them.
+([A-Za-z]+[\d]+[\w]*|[\d]+[A-Za-z]+[\w]*)
+15) Capture all the words that end in x.
+(\b[A-Za-z]*x\b)
+16) Capture all the US phone numbers. SP21: (123) 456-7890, 1-800-123-4567  Just those two formats
+((\1?1\-)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4})
+17) Capture all the question numbers from this assignment.
+([0-9]+)\) 
+18)  Capture all the phrases in quotes (without the quotes)
+"([^"]*)"
+19) Capture the whole string.  These are exhausting.
+(^.*$)
+20) Capture all the US dollar amounts Same money rules as #9
+(\$\ ?[+-]?[0-9]{1,3}([0-9])*(?:\.[0-9]{2})?)
